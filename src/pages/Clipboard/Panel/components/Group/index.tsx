@@ -3,6 +3,7 @@ import type { HistoryTablePayload } from "@/types/database";
 import { Flex, Tag } from "antd";
 import clsx from "clsx";
 import { ClipboardPanelContext } from "../..";
+import Search from "../Search";
 
 interface GroupItem extends Partial<HistoryTablePayload> {
 	key: string;
@@ -52,23 +53,26 @@ const Group = () => {
 
 	return (
 		<Scrollbar thumbSize={0}>
-			<Flex data-tauri-drag-region>
-				{groupList.map((item) => {
-					const { key, label } = item;
+			<Flex data-tauri-drag-region className="items-center">
+				<div className="flex flex-1 items-center gap-2">
+					{groupList.map((item) => {
+						const { key, label } = item;
 
-					const isChecked = checked === key;
+						const isChecked = checked === key;
 
-					return (
-						<Tag.CheckableTag
-							key={key}
-							checked={isChecked}
-							className={clsx({ "bg-primary!": isChecked })}
-							onChange={() => handleChange(item)}
-						>
-							{label}
-						</Tag.CheckableTag>
-					);
-				})}
+						return (
+							<Tag.CheckableTag
+								key={key}
+								checked={isChecked}
+								className={clsx({ "bg-primary!": isChecked })}
+								onChange={() => handleChange(item)}
+							>
+								{label}
+							</Tag.CheckableTag>
+						);
+					})}
+				</div>
+				<Search />
 			</Flex>
 		</Scrollbar>
 	);

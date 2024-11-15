@@ -1,10 +1,10 @@
 import Icon from "@/components/Icon";
 import type { InputRef } from "antd";
 import { Input } from "antd";
-import type { FC, HTMLAttributes } from "react";
+import type { FC } from "react";
 import { ClipboardPanelContext } from "../..";
 
-const Search: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
+const Search: FC = () => {
 	const { state } = useContext(ClipboardPanelContext);
 	const inputRef = useRef<InputRef>(null);
 	const [value, setValue] = useState<string>();
@@ -62,21 +62,20 @@ const Search: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
 	);
 
 	return (
-		<div {...props}>
-			<Input
-				ref={inputRef}
-				allowClear
-				value={value}
-				prefix={<Icon name="i-lucide:search" />}
-				size="small"
-				placeholder={t("clipboard.hints.search_placeholder")}
-				onCompositionStart={setTrue}
-				onCompositionEnd={setFalse}
-				onChange={(event) => {
-					setValue(event.target.value);
-				}}
-			/>
-		</div>
+		<Input
+			ref={inputRef}
+			allowClear
+			value={value}
+			prefix={<Icon name="i-lucide:search" />}
+			size="small"
+			placeholder={t("clipboard.hints.search_placeholder")}
+			onCompositionStart={setTrue}
+			onCompositionEnd={setFalse}
+			onChange={(event) => {
+				setValue(event.target.value);
+			}}
+			style={{ width: "400px" }}
+		/>
 	);
 };
 
