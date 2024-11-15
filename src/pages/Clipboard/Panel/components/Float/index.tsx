@@ -5,7 +5,6 @@ import { useSnapshot } from "valtio";
 import Group from "../Group";
 import List from "../List";
 import Pin from "../Pin";
-import Search from "../Search";
 
 const Float = () => {
 	const { search } = useSnapshot(clipboardStore);
@@ -24,8 +23,6 @@ const Float = () => {
 					"flex-col-reverse": search.position === "bottom",
 				})}
 			>
-				<Search className="mx-12" />
-
 				<Flex vertical gap={12} className="flex-1 overflow-hidden">
 					<Flex
 						align="center"

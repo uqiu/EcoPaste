@@ -1,4 +1,3 @@
-import Search from "../Search";
 // ...existing code...
 
 const TabBar: FC = () => {
@@ -9,7 +8,6 @@ const TabBar: FC = () => {
 				<Tabs
 				// ...existing tabs props...
 				/>
-				<Search />
 			</div>
 		</div>
 	);
