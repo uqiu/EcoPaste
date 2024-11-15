@@ -6,17 +6,19 @@ import { findIndex } from "lodash-es";
 import Item from "./components/Item";
 import NoteModal, { type NoteModalRef } from "./components/NoteModal";
 
-const List = () => {
+const List: FC = () => {
 	const { state, getList } = useContext(ClipboardPanelContext);
 	const outerRef = useRef<HTMLDivElement>(null);
 	const noteModelRef = useRef<NoteModalRef>(null);
 
 	const rowVirtualizer = useVirtualizer({
+		horizontal: true, // 改为水平方向
 		count: state.list.length,
 		gap: 12,
 		getScrollElement: () => outerRef.current,
-		estimateSize: () => 120,
+		estimateSize: () => 220, // 修改为卡片宽度
 		getItemKey: (index) => state.list[index].id,
+		overscan: 5, // 增加预渲染数量提升体验
 	});
 
 	useMount(() => {
@@ -98,12 +100,25 @@ const List = () => {
 	);
 
 	return (
-		<>
-			<Scrollbar ref={outerRef} offset={3} className="flex-1">
+		<div className="h-[220px] w-full overflow-hidden">
+			{" "}
+			{/* 固定高度为卡片高度 */}
+			<Scrollbar
+				ref={outerRef}
+				offset={3}
+				className="h-full px-2"
+				onWheel={(e) => {
+					// 将垂直滚动转换为水平滚动
+					if (outerRef.current) {
+						e.preventDefault();
+						outerRef.current.scrollLeft += e.deltaY;
+					}
+				}}
+			>
 				<div
 					data-tauri-drag-region
-					className="relative w-full"
-					style={{ height: rowVirtualizer.getTotalSize() }}
+					className="relative flex h-full gap-3"
+					style={{ width: rowVirtualizer.getTotalSize() }}
 				>
 					{rowVirtualizer.getVirtualItems().map((virtualItem) => {
 						const { key, size, start, index } = virtualItem;
@@ -117,18 +132,26 @@ const List = () => {
 								key={key}
 								index={index}
 								data={{ ...data, value }}
-								style={{ height: size, transform: `translateY(${start}px)` }}
+								style={{
+									width: size,
+									transform: `translateX(${start}px)`,
+									position: "absolute",
+									top: 0,
+									left: 0,
+								}}
 								openNoteModel={() => noteModelRef.current?.open()}
 							/>
 						);
 					})}
 				</div>
 			</Scrollbar>
-
-			<FloatButton.BackTop duration={0} target={() => outerRef.current!} />
-
+			<FloatButton.BackTop
+				duration={0}
+				target={() => outerRef.current!}
+				className="rotate-90" // 旋转按钮使其指向左侧
+			/>
 			<NoteModal ref={noteModelRef} />
-		</>
+		</div>
 	);
 };
 

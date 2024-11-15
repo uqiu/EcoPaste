@@ -6,7 +6,7 @@
 	"identifier": "com.ayangweb.EcoPaste",
 	"build": {
 		"beforeDevCommand": "pnpm dev",
-		"devUrl": "http://localhost:1420",
+		"devUrl": "http://localhost:14020",
 		"beforeBuildCommand": "pnpm build",
 		"frontendDist": "../dist"
 	},
@@ -17,10 +17,10 @@
 				"label": "main",
 				"title": "EcoPaste",
 				"url": "index.html/#/",
-				"width": 360,
-				"height": 600,
-				"minWidth": 360,
-				"minHeight": 600,
+				"width": 1920,
+				"height": 240,
+				"minWidth": 800,
+				"minHeight": 240,
 				"maximizable": false,
 				"decorations": false,
 				"visible": false,
