@@ -40,50 +40,34 @@ export const toggleWindowVisible = async () => {
 	}
 
 	if (appWindow.label === WINDOW_LABEL.MAIN) {
-		const { window } = clipboardStore;
+		// dock 风格的位置
+		const monitors = await availableMonitors();
+		if (!monitors.length) return;
 
-		if (window.style === "float") {
-			if (!focused && window.position !== "remember") {
-				const monitors = await availableMonitors();
+		const { width, height } = await appWindow.innerSize();
+		const cursor = await cursorPosition();
 
-				if (!monitors.length) return;
+		for await (const monitor of monitors) {
+			const { position, size } = monitor;
 
-				const { width, height } = await appWindow.innerSize();
-
-				const cursor = await cursorPosition();
-
-				for await (const monitor of monitors) {
-					const { position, size } = monitor;
-
-					let cursorX = cursor.x;
-					let cursorY = cursor.y;
-
-					if (
-						cursorX < position.x ||
-						cursorY < position.y ||
-						cursorX > position.x + size.width ||
-						cursorY > position.y + size.height
-					) {
-						continue;
-					}
-
-					if (window.position === "follow") {
-						cursorX = Math.min(cursorX, position.x + size.width - width);
-						cursorY = Math.min(cursorY, position.y + size.height - height);
-					} else {
-						cursorX = position.x + (size.width - width) / 2;
-						cursorY = position.y + (size.height - height) / 2;
-					}
-
-					await appWindow.setPosition(
-						new PhysicalPosition(Math.round(cursorX), Math.round(cursorY)),
-					);
-
-					break;
-				}
+			// 检查光标是否在当前显示器内
+			if (
+				cursor.x < position.x ||
+				cursor.y < position.y ||
+				cursor.x > position.x + size.width ||
+				cursor.y > position.y + size.height
+			) {
+				continue;
 			}
-		} else {
-			// TODO: dock 风格的位置
+
+			// 将窗口定位在屏幕底部居中
+			const windowX = position.x + (size.width - width) / 2;
+			const windowY = position.y + size.height - height;
+
+			await appWindow.setPosition(
+				new PhysicalPosition(Math.round(windowX), Math.round(windowY)),
+			);
+			break;
 		}
 	}
 
