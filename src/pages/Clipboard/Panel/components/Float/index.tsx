@@ -17,6 +17,7 @@ const Float = () => {
 			})}
 		>
 			<Flex
+				data-tauri-drag-region
 				vertical
 				gap={12}
 				className={clsx("h-full py-12", {
@@ -25,6 +26,7 @@ const Float = () => {
 			>
 				<Flex vertical gap={12} className="flex-1 overflow-hidden">
 					<Flex
+						data-tauri-drag-region
 						align="center"
 						justify="space-between"
 						gap="small"
