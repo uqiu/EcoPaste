@@ -19,7 +19,7 @@ const Search: FC = () => {
 
 	useTauriFocus({
 		onFocus() {
-			const { window, search } = clipboardStore;
+			const { search } = clipboardStore;
 
 			// 搜索框默认聚焦
 			if (search.defaultFocus) {
@@ -27,6 +27,9 @@ const Search: FC = () => {
 			} else {
 				inputRef.current?.blur();
 			}
+		},
+		onBlur() {
+			const { window, search } = clipboardStore;
 
 			// 激活窗口时滚动到顶部并选中首项
 			if (window.backTop) {
@@ -36,9 +39,6 @@ const Search: FC = () => {
 					state.activeId = state.list[0]?.id;
 				});
 			}
-		},
-		onBlur() {
-			const { search } = clipboardStore;
 
 			// 搜索框自动清空
 			if (search.autoClear) {
