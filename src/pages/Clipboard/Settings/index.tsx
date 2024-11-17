@@ -1,7 +1,7 @@
 import Audio from "@/components/Audio";
 import ProList from "@/components/ProList";
 import ProSwitch from "@/components/ProSwitch";
-import { Typography } from "antd";
+import { InputNumber, Typography } from "antd"; // 添加 InputNumber 导入
 import { useSnapshot } from "valtio";
 import AutoPaste from "./components/AutoPaste";
 import SearchPosition from "./components/SearchPosition";
@@ -73,6 +73,26 @@ const ClipboardSettings = () => {
 
 			<ProList header={t("preference.clipboard.content_settings.title")}>
 				<AutoPaste />
+
+				<div className="flex items-center justify-between">
+					<div>
+						<div className="font-medium text-base">{t("Card Width Size")}</div>
+						<div className="text-[var(--color-text-3)] text-sm">
+							{t("max=500 , min=50")}
+						</div>
+					</div>
+					<div className="flex items-center gap-2">
+						<InputNumber
+							min={50}
+							max={500}
+							value={content.cardWidth}
+							onChange={(value) => {
+								clipboardStore.content.cardWidth = value || 100;
+							}}
+							addonAfter="W"
+						/>
+					</div>
+				</div>
 
 				<ProSwitch
 					title={t("preference.clipboard.content_settings.label.image_ocr")}

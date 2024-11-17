@@ -3,6 +3,7 @@ import { ClipboardPanelContext } from "@/pages/Clipboard/Panel";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { FloatButton } from "antd";
 import { findIndex } from "lodash-es";
+import { useSnapshot } from "valtio";
 import Item from "./components/Item";
 import NoteModal, { type NoteModalRef } from "./components/NoteModal";
 
@@ -10,13 +11,14 @@ const List: FC = () => {
 	const { state, getList } = useContext(ClipboardPanelContext);
 	const outerRef = useRef<HTMLDivElement>(null);
 	const noteModelRef = useRef<NoteModalRef>(null);
+	const { content } = useSnapshot(clipboardStore);
 
 	const rowVirtualizer = useVirtualizer({
 		horizontal: true, // 改为水平方向
 		count: state.list.length,
 		gap: 12,
 		getScrollElement: () => outerRef.current,
-		estimateSize: () => 220, // 修改为卡片宽度
+		estimateSize: () => content.cardWidth, // 使用store中的宽度
 		getItemKey: (index) => state.list[index].id,
 		overscan: 5, // 增加预渲染数量提升体验
 	});
@@ -100,9 +102,7 @@ const List: FC = () => {
 	);
 
 	return (
-		<div className="h-[220px] w-full overflow-hidden">
-			{" "}
-			{/* 固定高度为卡片高度 */}
+		<div className="h-full w-full overflow-hidden">
 			<Scrollbar
 				ref={outerRef}
 				offset={3}
@@ -116,12 +116,11 @@ const List: FC = () => {
 				}}
 			>
 				<div
-					data-tauri-drag-region
 					className="relative flex h-full gap-3"
 					style={{ width: rowVirtualizer.getTotalSize() }}
 				>
 					{rowVirtualizer.getVirtualItems().map((virtualItem) => {
-						const { key, size, start, index } = virtualItem;
+						const { key, start, index } = virtualItem;
 						const data = state.list[index];
 						let { type, value } = data;
 
@@ -133,7 +132,7 @@ const List: FC = () => {
 								index={index}
 								data={{ ...data, value }}
 								style={{
-									width: size,
+									width: content.cardWidth, // 只保留宽度设置
 									transform: `translateX(${start}px)`,
 									position: "absolute",
 									top: 0,

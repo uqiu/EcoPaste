@@ -78,6 +78,7 @@ export interface ClipboardStore {
 		ocr: boolean;
 		copyPlain: boolean;
 		pastePlain: boolean;
+		cardWidth: number;
 	};
 
 	// 历史记录
