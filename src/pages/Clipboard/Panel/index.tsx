@@ -85,6 +85,12 @@ const ClipboardPanel = () => {
 
 				insertSQL("history", data);
 			}
+
+			// 每次有新的剪贴板内容，都会刷新列表，以便更新排序和active状态
+			if (window.backTop) {
+				state.scrollToIndex?.(0);
+				state.activeId = state.list[0]?.id;
+			}
 		});
 
 		// 监听刷新列表
