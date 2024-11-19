@@ -27,7 +27,8 @@
 				"transparent": true,
 				"acceptFirstMouse": true,
 				"skipTaskbar": true,
-				"resizable": false
+				"resizable": false,
+				"shadow": false
 			},
 			{
 				"label": "preference",
@@ -47,7 +48,8 @@
 					"effects": ["sidebar"],
 					"state": "active"
 				},
-				"resizable": false
+				"resizable": false,
+				"shadow": false
 			}
 		],
 		"security": {
