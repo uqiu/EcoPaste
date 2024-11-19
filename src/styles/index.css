@@ -1,12 +1,35 @@
-
 #root {
-  border: none;
-  background: transparent;
+  /*border: none !important;*/
+  background: transparent !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 body {
   margin: 0;
   padding: 0;
-  border: none;
-  background: transparent;
+  /*border: none !important;*/
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  color: white !important
+}
+
+html,
+body {
+  background-color: rgba(121, 38, 38, 0.541) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  height: 100%;
+  overflow: hidden;
+  color: white !important
+}
+
+.onecard {
+  background-color: rgb(255, 255, 255) !important;
+  color: white !important
 }

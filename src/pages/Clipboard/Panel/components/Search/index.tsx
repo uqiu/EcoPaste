@@ -2,7 +2,18 @@ import Icon from "@/components/Icon";
 import type { InputRef } from "antd";
 import { Input } from "antd";
 import type { FC } from "react";
+import styled from "styled-components";
 import { ClipboardPanelContext } from "../..";
+
+const StyledInput = styled(Input)`
+  border-color: #666 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  
+  &:hover, &:focus {
+    border-color: white !important;
+    box-shadow: none !important;
+  }
+`;
 
 const Search: FC = () => {
 	const { state } = useContext(ClipboardPanelContext);
@@ -62,7 +73,7 @@ const Search: FC = () => {
 	);
 
 	return (
-		<Input
+		<StyledInput
 			ref={inputRef}
 			allowClear
 			value={value}
@@ -74,7 +85,10 @@ const Search: FC = () => {
 			onChange={(event) => {
 				setValue(event.target.value);
 			}}
-			style={{ width: "400px" }}
+			style={{
+				width: "800px",
+				backgroundColor: "red !important",
+			}}
 		/>
 	);
 };

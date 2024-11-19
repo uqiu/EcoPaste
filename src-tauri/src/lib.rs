@@ -5,12 +5,15 @@ use tauri::{generate_context, Builder, Manager, WindowEvent};
 use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_eco_window::{show_main_window, MAIN_WINDOW_LABEL, PREFERENCE_WINDOW_LABEL};
 use tauri_plugin_log::{Target, TargetKind};
+use window_vibrancy::{apply_acrylic};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let app = Builder::default()
         .setup(|app| {
             let main_window = app.get_webview_window(MAIN_WINDOW_LABEL).unwrap();
+
+            apply_acrylic(&main_window, Some((0, 0, 0, 100))).expect("Unsupported platform! 'apply_blur' is only supported on Windows");
 
             let preference_window = app.get_webview_window(PREFERENCE_WINDOW_LABEL).unwrap();
 

@@ -127,19 +127,56 @@ const List: FC = () => {
 						value = type !== "image" ? value : getSaveImagePath(value);
 
 						return (
-							<Item
+							<div
 								key={key}
-								index={index}
-								data={{ ...data, value }}
+								className="sss1"
 								style={{
-									width: content.cardWidth, // 只保留宽度设置
+									width: content.cardWidth,
+									height: "100%",
 									transform: `translateX(${start}px)`,
 									position: "absolute",
 									top: 0,
-									left: 0,
+									left: 0, // 移除这里的 left: 20
+									//  color: "white",
+									//  border: "0px solid black !important",
 								}}
-								openNoteModel={() => noteModelRef.current?.open()}
-							/>
+							>
+								{/* 毛玻璃背景层 */}
+								{/*<div
+      className="sss2"
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+		margin: "11px",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
+		filter: "blur(200px)",
+        //border: "0px solid black !important",
+      }}
+    />*/}
+								{/* 清晰内容层 */}
+								<Item
+									key={key}
+									index={index}
+									data={{ ...data, value }}
+									style={{
+										width: "100%",
+										height: "100%",
+										position: "absolute",
+										zIndex: 1,
+										border: "0px solid black !important",
+										top: 0,
+										left: 0,
+										right: 0,
+										bottom: 0,
+										backgroundColor: "rgba(0, 0, 0, 0.4)",
+										color: "rgba(255, 255, 255, 0.8)",
+										borderColor: "rgba(0, 0, 0, 0.2)",
+										boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+									}}
+									openNoteModel={() => noteModelRef.current?.open()}
+								/>
+							</div>
 						);
 					})}
 				</div>
