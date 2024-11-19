@@ -8,6 +8,7 @@ import {
 	availableMonitors,
 	cursorPosition,
 } from "@tauri-apps/api/window";
+import { useSnapshot } from "valtio";
 
 /**
  * 显示窗口
@@ -50,6 +51,8 @@ export const toggleWindowVisible = async () => {
 		for await (const monitor of monitors) {
 			const { position, size } = monitor;
 
+			const { content } = useSnapshot(clipboardStore);
+
 			// 检查光标是否在当前显示器内
 			if (
 				cursor.x < position.x ||
@@ -62,7 +65,7 @@ export const toggleWindowVisible = async () => {
 
 			// 将窗口定位在屏幕底部居中
 			const windowX = position.x + (size.width - width) / 2;
-			const windowY = position.y + size.height - height;
+			const windowY = position.y + size.height - height - content.bottomMargin;
 
 			await appWindow.setPosition(
 				new PhysicalPosition(Math.round(windowX), Math.round(windowY)),
