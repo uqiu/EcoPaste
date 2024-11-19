@@ -16,6 +16,26 @@ const ClipboardSettings = () => {
 			<ProList header={t("preference.clipboard.window_settings.title")}>
 				<WindowPosition />
 
+				<div className="flex items-center justify-between">
+					<div>
+						<div className="font-medium text-base">{t("Bottom Distance")}</div>
+						<div className="text-[var(--color-text-3)] text-sm">
+							{t("Distance from window to desktop bottom")}
+						</div>
+					</div>
+					<div className="flex items-center gap-2">
+						<InputNumber
+							min={0}
+							max={500}
+							value={window.bottomDistance}
+							onChange={(value) => {
+								clipboardStore.window.bottomDistance = value || 100;
+							}}
+							addonAfter="px"
+						/>
+					</div>
+				</div>
+
 				<ProSwitch
 					title={t("preference.clipboard.window_settings.label.back_top")}
 					description={t("preference.clipboard.window_settings.hints.back_top")}

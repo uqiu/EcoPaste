@@ -6,6 +6,7 @@ export const clipboardStore = proxy<ClipboardStore>({
 		style: "dock",
 		position: "remember",
 		backTop: false,
+		bottomDistance: 100,
 	},
 
 	audio: {

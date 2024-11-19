@@ -58,6 +58,7 @@ export interface ClipboardStore {
 		style: "float" | "dock";
 		position: "remember" | "follow" | "center";
 		backTop: boolean;
+		bottomDistance: number; // 添加这一行
 	};
 
 	// 音效设置

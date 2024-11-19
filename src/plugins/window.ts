@@ -1,4 +1,5 @@
 import { WINDOW_PLUGIN } from "@/constants";
+import { clipboardStore } from "@/stores/clipboard";
 import type { WindowLabel } from "@/types/plugin";
 import { invoke } from "@tauri-apps/api/core";
 import { emit } from "@tauri-apps/api/event";
@@ -62,7 +63,11 @@ export const toggleWindowVisible = async () => {
 
 			// 将窗口定位在屏幕底部居中
 			const windowX = position.x + (size.width - width) / 2;
-			const windowY = position.y + size.height - height - 100;
+			const windowY =
+				position.y +
+				size.height -
+				height -
+				clipboardStore.window.bottomDistance;
 
 			await appWindow.setPosition(
 				new PhysicalPosition(Math.round(windowX), Math.round(windowY)),
