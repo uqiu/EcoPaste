@@ -62,7 +62,7 @@ export const toggleWindowVisible = async () => {
 
 			// 将窗口定位在屏幕底部居中
 			const windowX = position.x + (size.width - width) / 2;
-			const windowY = position.y + size.height - height;
+			const windowY = position.y + size.height - height - 100;
 
 			await appWindow.setPosition(
 				new PhysicalPosition(Math.round(windowX), Math.round(windowY)),
