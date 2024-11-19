@@ -94,6 +94,28 @@ const ClipboardSettings = () => {
 					</div>
 				</div>
 
+				<div className="flex items-center justify-between">
+					<div>
+						<div className="font-medium text-base">
+							{t("bottom margin Size")}
+						</div>
+						<div className="text-[var(--color-text-3)] text-sm">
+							{t("max=1000 , min=0")}
+						</div>
+					</div>
+					<div className="flex items-center gap-2">
+						<InputNumber
+							min={0}
+							max={1000}
+							value={content.bottomMargin}
+							onChange={(value) => {
+								clipboardStore.content.bottomMargin = value || 100;
+							}}
+							addonAfter="W"
+						/>
+					</div>
+				</div>
+
 				<ProSwitch
 					title={t("preference.clipboard.content_settings.label.image_ocr")}
 					description={
