@@ -6,7 +6,7 @@ export const clipboardStore = proxy<ClipboardStore>({
 		style: "dock",
 		position: "remember",
 		backTop: false,
-		bottomDistance: 100,
+		bottomDistance: 0, // 修改初始值为0
 	},
 
 	audio: {

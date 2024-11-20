@@ -27,9 +27,12 @@ const ClipboardSettings = () => {
 						<InputNumber
 							min={0}
 							max={500}
+							defaultValue={0} // 添加默认值
 							value={window.bottomDistance}
 							onChange={(value) => {
-								clipboardStore.window.bottomDistance = value || 100;
+								// 允许0值，不使用 value || 0
+								clipboardStore.window.bottomDistance =
+									value === null ? 0 : value;
 							}}
 							addonAfter="px"
 						/>
