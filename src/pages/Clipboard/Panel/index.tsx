@@ -81,6 +81,10 @@ const ClipboardPanel = () => {
 
 				if (state.group === group || (isNil(state.group) && !state.favorite)) {
 					state.list.unshift(data);
+					// 确保列表长度不超过50
+					if (state.list.length > 50) {
+						state.list.length = 50;
+					}
 				}
 
 				insertSQL("history", data);

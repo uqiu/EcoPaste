@@ -101,7 +101,7 @@ export const selectSQL = async <List,>(
 	const whereClause = clause ? `WHERE ${clause}` : "";
 
 	const list = await executeSQL(
-		`SELECT * FROM ${tableName} ${whereClause} ORDER BY createTime DESC;`,
+		`SELECT * FROM ${tableName} ${whereClause} ORDER BY createTime DESC limit 50;`,
 		values,
 	);
 
